@@ -18,36 +18,23 @@ function Home2() {
               LET ME <span className="purple"> INTRODUCE </span> MYSELF
             </h1>
             <p className="home-about-body">
-            I have developed a strong interest in programming and have learned at least something, I believe. 🤷‍♂️
+              I'm <b className="purple">Chibuike Praise Obiora</b>, a passionate developer dedicated to building elegant, functional web and blockchain solutions.
               <br />
-              <br />I am fluent in classics like
+              <br />I'm proficient in languages like
               <i>
-                <b className="purple"> Python, Javascript and C++ </b>
-              </i>
+                <b className="purple"> JavaScript, TypeScript, and Solidity</b>
+              </i>, and I love working with modern tools and frameworks.
               <br />
               <br />
-              My field of Interest's are building new &nbsp;
+              My interests include developing innovative&nbsp;
               <i>
-                <b className="purple">Web Technologies and Products </b> and
-                also in areas related to{" "}
-                <b className="purple">
-                  Blockchain.
-                </b>
+                <b className="purple">Web Apps, Smart Contracts, and DeFi Platforms</b>
               </i>
+              , especially using technologies like{" "}
+              <b className="purple">React.js, Next.js, and Node.js</b>.
               <br />
               <br />
-              Whenever possible, I also apply my passion for developing products
-              with <b className="purple">Node.js</b> and
-              <i>
-                <b className="purple">
-                  {" "}
-                  Modern Javascript Library and Frameworks
-                </b>
-              </i>
-              &nbsp; like
-              <i>
-                <b className="purple"> React.js and Next.js</b>
-              </i>
+              I’m always eager to contribute to meaningful projects and collaborate with passionate teams.
             </p>
           </Col>
           <Col md={4} className="myAvtar">
@@ -60,12 +47,12 @@ function Home2() {
           <Col md={12} className="home-about-social">
             <h1>FIND ME ON</h1>
             <p>
-              Feel free to <span className="purple">connect </span>with me
+              Connect with <span className="purple">me</span> online
             </p>
             <ul className="home-about-social-links">
               <li className="social-icons">
                 <a
-                  href="https://github.com/oxBinaryBrain"
+                  href="https://github.com/obiorachibuike"
                   target="_blank"
                   rel="noreferrer"
                   className="icon-colour  home-social-icons"
@@ -75,7 +62,7 @@ function Home2() {
               </li>
               <li className="social-icons">
                 <a
-                  href="https://x.com/UdayG6389896490"
+                  href="https://x.com/obiorachibuike"
                   target="_blank"
                   rel="noreferrer"
                   className="icon-colour  home-social-icons"
@@ -85,7 +72,7 @@ function Home2() {
               </li>
               <li className="social-icons">
                 <a
-                  href="https://www.linkedin.com/in/uday-g-601ba9266/"
+                  href="https://www.linkedin.com/in/obiorachibuike"
                   target="_blank"
                   rel="noreferrer"
                   className="icon-colour  home-social-icons"
@@ -100,4 +87,5 @@ function Home2() {
     </Container>
   );
 }
+
 export default Home2;
