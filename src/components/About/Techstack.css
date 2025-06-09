@@ -1,0 +1,21 @@
+.techstack-row {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.techstack-row.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tech-icons {
+  font-size: 3rem;
+  margin: 20px 0;
+  transition: transform 0.3s ease;
+}
+
+.tech-icons:hover {
+  transform: scale(1.2);
+  color: #6f42c1; /* Optional hover color */
+}
