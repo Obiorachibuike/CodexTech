@@ -8,32 +8,35 @@ function AboutCard() {
       <Card.Body>
         <blockquote className="blockquote mb-0">
           <p style={{ textAlign: "justify" }}>
-            Hi Everyone, I am <span className="purple">Uday G </span>
-            from <span className="purple"> Bengaluru, India.</span>
+            Hi Everyone, I am <span className="purple">Chibuike Praise Obiora</span>
+            from <span className="purple">Nigeria.</span>
             <br />
-            I'm currently learning UI Designs, Web development and Machinle learning.
+            I'm a passionate developer focused on Web3, Full Stack Development, and creating impactful digital products.
             <br />
-            I'm expected to graduate from Presidency University, Bengaluru in 2025.
+            I love learning new technologies and building things that matter.
             <br />
             <br />
-            Apart from coding, some other activities that I love to do!
+            Apart from coding, here are a few things I enjoy doing:
           </p>
           <ul>
             <li className="about-activity">
-              <ImPointRight /> Playing Games
+              <ImPointRight /> Exploring Blockchain Innovations
             </li>
             <li className="about-activity">
-              <ImPointRight /> Watching Anime
+              <ImPointRight /> Following Forex & Crypto Markets
             </li>
             <li className="about-activity">
-              <ImPointRight /> Reading Self-Help Books
+              <ImPointRight /> Listening to Music
+            </li>
+            <li className="about-activity">
+              <ImPointRight /> Reading About Tech and Startups
             </li>
           </ul>
 
           <p style={{ color: "rgb(155 126 172)" }}>
-            "Strive for progress, not perfection."{" "}
+            "Code with purpose, build with passion."{" "}
           </p>
-          <footer className="blockquote-footer">ChatGPT</footer>
+          <footer className="blockquote-footer">Chibuike Praise Obiora</footer>
         </blockquote>
       </Card.Body>
     </Card>
