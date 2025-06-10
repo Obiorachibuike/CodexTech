@@ -61,5 +61,3 @@ function Techstack() {
 }
 
 export default Techstack;
-
-Make use of intersection observer
