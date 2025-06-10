@@ -1,7 +1,12 @@
+/* Techstack.css */
+
 .techstack-row {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(20px); /* Move down slightly */
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
 .techstack-row.visible {
@@ -10,12 +15,18 @@
 }
 
 .tech-icons {
-  font-size: 3rem;
-  margin: 20px 0;
-  transition: transform 0.3s ease;
+  font-size: 3em;
+  margin: 10px;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
-.tech-icons:hover {
-  transform: scale(1.2);
-  color: #6f42c1; /* Optional hover color */
+.tech-icons.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
