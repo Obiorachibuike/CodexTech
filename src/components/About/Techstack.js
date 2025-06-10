@@ -96,7 +96,7 @@ function Techstack() {
           style={{ transitionDelay: `${index * 0.1}s` }}
         >
           {icon.icon}
-          <p className="icon-name">{icon.name}</p>
+          <p>{icon.name}</p>
         </Col>
       ))}
     </Row>
