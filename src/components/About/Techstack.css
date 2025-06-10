@@ -24,9 +24,18 @@
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .tech-icons.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.icon-name {
+  font-size: 0.8em;
+  margin-top: 5px;
+  color: #777; /* Adjust color as needed */
 }
