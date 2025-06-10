@@ -15,7 +15,14 @@ import {
   SiMysql,
   SiTypescript,
   SiHtml5,
+  SiCss3,
+  SiRedux,
+  SiExpress,
+  SiPostgresql,
+  SiFirebase,
+  SiDocker,
 } from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 import "./Techstack.css"; // Import the CSS file
 
 const icons = [
@@ -27,10 +34,17 @@ const icons = [
   { icon: <SiNextdotjs />, name: "Next.js" },
   { icon: <DiGit />, name: "Git" },
   { icon: <SiHtml5 />, name: "HTML5" },
+  { icon: <SiCss3 />, name: "CSS3" },
   { icon: <SiTypescript />, name: "TypeScript" },
   { icon: <SiMysql />, name: "MySQL" },
   { icon: <DiPython />, name: "Python" },
   { icon: <DiJava />, name: "Java" },
+  { icon: <SiRedux />, name: "Redux" },
+  { icon: <SiExpress />, name: "Express" },
+  { icon: <SiPostgresql />, name: "PostgreSQL" },
+  { icon: <SiFirebase />, name: "Firebase" },
+  { icon: <FaAws />, name: "AWS" },
+  { icon: <SiDocker />, name: "Docker" },
 ];
 
 function Techstack() {
@@ -82,6 +96,7 @@ function Techstack() {
           style={{ transitionDelay: `${index * 0.1}s` }}
         >
           {icon.icon}
+          <p>{icon.name}</p>
         </Col>
       ))}
     </Row>
