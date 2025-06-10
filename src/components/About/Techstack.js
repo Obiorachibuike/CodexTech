@@ -16,6 +16,7 @@ import {
   SiTypescript,
   SiHtml5,
 } from "react-icons/si";
+import "./Techstack.css"; // Import the CSS file
 
 function Techstack() {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,6 +29,9 @@ function Techstack() {
           if (entry.isIntersecting) {
             setIsVisible(true);
             observer.unobserve(rowRef.current); // Stop observing after it becomes visible
+          } else {
+            // Optional: Reset visibility if it goes out of view
+            // setIsVisible(false);
           }
         });
       },
@@ -52,10 +56,8 @@ function Techstack() {
       style={{
         justifyContent: "center",
         paddingBottom: "50px",
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(20px)",
-        transition: "opacity 0.5s, transform 0.5s",
       }}
+      className={`techstack-row ${isVisible ? "visible" : ""}`}
       ref={rowRef}
     >
       <Col xs={4} md={2} className="tech-icons">
