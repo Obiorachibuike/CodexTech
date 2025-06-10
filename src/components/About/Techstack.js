@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { CgCPlusPlus } from "react-icons/cg";
 import {
@@ -17,92 +17,83 @@ import {
   SiHtml5,
 } from "react-icons/si";
 
-
 function Techstack() {
-  const [isRowVisible, setIsRowVisible] = useState(false);
-  const [visibleIcons, setVisibleIcons] = useState(new Set());
+  const [isVisible, setIsVisible] = useState(false);
   const rowRef = useRef(null);
-  const iconRefs = useRef([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.target === rowRef.current) {
-            // Handle row visibility
-            if (entry.isIntersecting) {
-              setIsRowVisible(true);
-            }
-          } else {
-            // Handle individual icon visibility
-            const iconIndex = parseInt(entry.target.dataset.index);
-            if (entry.isIntersecting) {
-              setVisibleIcons(prev => new Set([...prev, iconIndex]));
-            }
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(rowRef.current); // Stop observing after it becomes visible
           }
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: '50px 0px -50px 0px'
+        threshold: 0.1, // Trigger when 10% of the component is visible
       }
     );
 
-    // Observe the row
     if (rowRef.current) {
       observer.observe(rowRef.current);
     }
-
-    // Observe individual icons
-    iconRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
 
     return () => {
       if (rowRef.current) {
         observer.unobserve(rowRef.current);
       }
-      iconRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
-      });
     };
   }, []);
 
-  const techIcons = [
-    { Component: CgCPlusPlus, name: "C++" },
-    { Component: DiJavascript1, name: "JavaScript" },
-    { Component: DiNodejs, name: "Node.js" },
-    { Component: DiReact, name: "React" },
-    { Component: DiMongodb, name: "MongoDB" },
-    { Component: SiNextdotjs, name: "Next.js" },
-    { Component: DiGit, name: "Git" },
-    { Component: SiHtml5, name: "HTML5" },
-    { Component: SiTypescript, name: "TypeScript" },
-    { Component: SiMysql, name: "MySQL" },
-    { Component: DiPython, name: "Python" },
-    { Component: DiJava, name: "Java" },
-  ];
-
   return (
-    <Row 
+    <Row
+      style={{
+        justifyContent: "center",
+        paddingBottom: "50px",
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(20px)",
+        transition: "opacity 0.5s, transform 0.5s",
+      }}
       ref={rowRef}
-      className={`techstack-row ${isRowVisible ? 'visible' : ''}`}
-      style={{ paddingBottom: "50px" }}
     >
-      {techIcons.map(({ Component, name }, index) => (
-        <Col 
-          xs={4} 
-          md={2} 
-          key={name}
-          ref={el => iconRefs.current[index] = el}
-          data-index={index}
-        >
-          <div className={`tech-icons ${visibleIcons.has(index) ? 'visible' : ''}`}>
-            <Component />
-            <div className="icon-name">{name}</div>
-          </div>
-        </Col>
-      ))}
+      <Col xs={4} md={2} className="tech-icons">
+        <CgCPlusPlus />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <DiJavascript1 />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <DiNodejs />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <DiReact />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <DiMongodb />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiNextdotjs />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <DiGit />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiHtml5 />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiTypescript />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <SiMysql />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <DiPython />
+      </Col>
+      <Col xs={4} md={2} className="tech-icons">
+        <DiJava />
+      </Col>
     </Row>
   );
 }
