@@ -1,93 +1,47 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { CgCPlusPlus } from "react-icons/cg";
 import {
-  DiJavascript1,
-  DiReact,
-  DiNodejs,
-  DiMongodb,
-  DiPython,
-  DiGit,
-  DiJava,
+  DiJavascript1, DiReact, DiNodejs, DiMongodb, DiPython, DiGit, DiJava, DiHtml5,
 } from "react-icons/di";
 import {
-  SiNextdotjs,
-  SiMysql,
-  SiTypescript,
-  SiHtml5,
-  SiSolidity,
-  SiEthereum,
-  SiTailwindcss,
-  SiRedux,
-  SiExpress,
-  SiWeb3Dotjs,
-  SiHardhat,
-  SiTruffle,
+  SiNextdotjs, SiMysql, SiTypescript, SiSolidity, SiEthereum, SiTailwindcss,
+  SiRedux, SiExpress, SiWeb3Dotjs, SiEthers, SiHardhat, SiTruffle,
 } from "react-icons/si";
-import "./Techstack.css"; // Custom CSS for animations
+import { CgCPlusPlus } from "react-icons/cg";
+import "./Techstack.css"; // 👈 create this file for animations
 
 function Techstack() {
-  const iconsRef = useRef([]);
+  const ref = useRef();
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("fade-in");
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-      }
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.3 }
     );
 
-    iconsRef.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
+    if (ref.current) observer.observe(ref.current);
 
     return () => {
-      iconsRef.current.forEach((el) => {
-        if (el) observer.unobserve(el);
-      });
+      if (ref.current) observer.unobserve(ref.current);
     };
   }, []);
 
-  const techIcons = [
-    CgCPlusPlus,
-    DiJavascript1,
-    SiTypescript,
-    DiNodejs,
-    SiExpress,
-    DiReact,
-    SiNextdotjs,
-    SiRedux,
-    SiTailwindcss,
-    DiMongodb,
-    SiMysql,
-    DiGit,
-    SiHtml5,
-    DiPython,
-    DiJava,
-    SiSolidity,
-    SiEthereum,
-    SiWeb3Dotjs,
-    SiHardhat,
-    SiTruffle,
-  ];
-
   return (
-    <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
-      {techIcons.map((Icon, index) => (
-        <Col
-          key={index}
-          xs={4}
-          md={2}
-          className="tech-icons hidden"
-          ref={(el) => (iconsRef.current[index] = el)}
-        >
-          <Icon />
+    <Row
+      ref={ref}
+      className={`techstack-row ${isVisible ? "visible" : ""}`}
+      style={{ justifyContent: "center", paddingBottom: "50px" }}
+    >
+      {[
+        <DiJavascript1 />, <SiTypescript />, <DiNodejs />, <SiExpress />,
+        <DiReact />, <SiNextdotjs />, <SiRedux />, <SiTailwindcss />,
+        <DiMongodb />, <SiMysql />, <DiGit />, <DiHtml5 />, <CgCPlusPlus />,
+        <DiPython />, <DiJava />, <SiSolidity />, <SiEthereum />, <SiEthers />,
+        <SiWeb3Dotjs />, <SiHardhat />, <SiTruffle />,
+      ].map((Icon, idx) => (
+        <Col key={idx} xs={4} md={2} className="tech-icons">
+          {Icon}
         </Col>
       ))}
     </Row>
