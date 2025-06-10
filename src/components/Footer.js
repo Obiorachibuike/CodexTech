@@ -16,7 +16,7 @@ function Footer() {
           <h3>Designed and Developed by UDAY</h3>
         </Col>
         <Col md="4" className="footer-copywright">
-          <h3>Copyright © {year} UG</h3>
+          <h3>Copyright © {year} KodexTech</h3>
         </Col>
         <Col md="4" className="footer-body">
           <ul className="footer-icons">
@@ -32,7 +32,7 @@ function Footer() {
             </li>
             <li className="social-icons">
               <a
-                href="https://x.com/UdayG6389896490"
+                href="https://x.com/ObioraChibuike5"
                 style={{ color: "white" }}
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -42,7 +42,7 @@ function Footer() {
             </li>
             <li className="social-icons">
               <a
-                href="https://www.linkedin.com/in/uday-g-601ba9266/"
+                href="https://www.linkedin.com/in/obiorachibuike"
                 style={{ color: "white" }}
                 target="_blank" 
                 rel="noopener noreferrer"
