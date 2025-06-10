@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { CgCPlusPlus } from "react-icons/cg";
 import {
@@ -16,50 +16,10 @@ import {
   SiTypescript,
   SiHtml5,
 } from "react-icons/si";
-import "./Techstack.css"; // Import the CSS file
 
 function Techstack() {
-  const [isVisible, setIsVisible] = useState(false);
-  const rowRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(rowRef.current); // Stop observing after it becomes visible
-          } else {
-            // Optional: Reset visibility if it goes out of view
-            // setIsVisible(false);
-          }
-        });
-      },
-      {
-        threshold: 0.1, // Trigger when 10% of the component is visible
-      }
-    );
-
-    if (rowRef.current) {
-      observer.observe(rowRef.current);
-    }
-
-    return () => {
-      if (rowRef.current) {
-        observer.unobserve(rowRef.current);
-      }
-    };
-  }, []);
-
   return (
-    <Row
-      style={{
-        justifyContent: "center",
-        paddingBottom: "50px",
-      }}
-      className={`techstack-row ${isVisible ? "visible" : ""}`}
-      ref={rowRef}
-    >
+    <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
       <Col xs={4} md={2} className="tech-icons">
         <CgCPlusPlus />
       </Col>
@@ -83,7 +43,7 @@ function Techstack() {
       </Col>
       <Col xs={4} md={2} className="tech-icons">
         <SiHtml5 />
-      </Col>
+        </Col>
       <Col xs={4} md={2} className="tech-icons">
         <SiTypescript />
       </Col>
