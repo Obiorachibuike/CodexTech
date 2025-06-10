@@ -16,7 +16,7 @@ import {
   SiTypescript,
   SiHtml5,
 } from "react-icons/si";
-import "./Techstack.css";
+
 
 function Techstack() {
   const [isRowVisible, setIsRowVisible] = useState(false);
