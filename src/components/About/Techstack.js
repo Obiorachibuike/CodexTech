@@ -15,11 +15,40 @@ import {
   SiMysql,
   SiTypescript,
   SiHtml5,
+  SiCss3,
+  SiRedux,
+  SiExpress,
+  SiPostgresql,
+  SiFirebase,
+  SiDocker,
 } from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 import "./Techstack.css"; // Import the CSS file
 
+const icons = [
+  { icon: <CgCPlusPlus />, name: "C++" },
+  { icon: <DiJavascript1 />, name: "JavaScript" },
+  { icon: <DiNodejs />, name: "Node.js" },
+  { icon: <DiReact />, name: "React" },
+  { icon: <DiMongodb />, name: "MongoDB" },
+  { icon: <SiNextdotjs />, name: "Next.js" },
+  { icon: <DiGit />, name: "Git" },
+  { icon: <SiHtml5 />, name: "HTML5" },
+  { icon: <SiCss3 />, name: "CSS3" },
+  { icon: <SiTypescript />, name: "TypeScript" },
+  { icon: <SiMysql />, name: "MySQL" },
+  { icon: <DiPython />, name: "Python" },
+  { icon: <DiJava />, name: "Java" },
+  { icon: <SiRedux />, name: "Redux" },
+  { icon: <SiExpress />, name: "Express" },
+  { icon: <SiPostgresql />, name: "PostgreSQL" },
+  { icon: <SiFirebase />, name: "Firebase" },
+  { icon: <FaAws />, name: "AWS" },
+  { icon: <SiDocker />, name: "Docker" },
+];
+
 function Techstack() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [visibleIcons, setVisibleIcons] = useState([]);
   const rowRef = useRef(null);
 
   useEffect(() => {
@@ -27,16 +56,18 @@ function Techstack() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(rowRef.current); // Stop observing after it becomes visible
-          } else {
-            // Optional: Reset visibility if it goes out of view
-            // setIsVisible(false);
+            // Reveal icons one by one with staggered timing
+            icons.forEach((_, index) => {
+              setTimeout(() => {
+                setVisibleIcons(prev => [...prev, index]);
+              }, index * 100); // 100ms delay between each icon
+            });
+            observer.unobserve(rowRef.current);
           }
         });
       },
       {
-        threshold: 0.1, // Trigger when 10% of the component is visible
+        threshold: 0.1,
       }
     );
 
@@ -53,49 +84,23 @@ function Techstack() {
 
   return (
     <Row
-      style={{
-        justifyContent: "center",
-        paddingBottom: "50px",
-      }}
-      className={`techstack-row ${isVisible ? "visible" : ""}`}
+      style={{ justifyContent: "center", paddingBottom: "50px" }}
+      className="techstack-row"
       ref={rowRef}
     >
-      <Col xs={4} md={2} className="tech-icons">
-        <CgCPlusPlus />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiJavascript1 />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiNodejs />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiReact />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiMongodb />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiNextdotjs />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiGit />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiHtml5 />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiTypescript />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiMysql />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiPython />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <DiJava />
-      </Col>
+      {icons.map((icon, index) => (
+        <Col
+          key={index}
+          xs={4}
+          md={2}
+          className={`tech-icons ${
+            visibleIcons.includes(index) ? "visible" : ""
+          }`}
+        >
+          {icon.icon}
+          <p className="icon-name">{icon.name}</p>
+        </Col>
+      ))}
     </Row>
   );
 }
