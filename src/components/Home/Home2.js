@@ -22,7 +22,7 @@ function Home2() {
               <br />
               <br />I'm proficient in languages like
               <i>
-                <b className="purple"> JavaScript, TypeScript, and Solidity</b>
+                <b className="purple"> JavaScript, TypeScript,Python, PHP and Solidity</b>
               </i>, and I love working with modern tools and frameworks.
               <br />
               <br />
