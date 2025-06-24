@@ -31,7 +31,7 @@ function Home2() {
                 <b className="purple">Web Apps, Smart Contracts, and DeFi Platforms</b>
               </i>
               , especially using technologies like{" "}
-              <b className="purple">React.js, Next.js, and Node.js</b>.
+              <b className="purple">React.js, Next.js,Django, Flask, Fast Api and Node.js</b>.
               <br />
               <br />
               I’m always eager to contribute to meaningful projects and collaborate with passionate teams.
