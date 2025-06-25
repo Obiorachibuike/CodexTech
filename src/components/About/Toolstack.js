@@ -1,27 +1,72 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import {
   SiVisualstudiocode,
   SiPostman,
   SiVercel,
   SiWindows,
+  SiGithub,
+  SiFigma,
+  SiDocker,
+  SiNotion,
+  SiSlack,
+  SiNodedotjs,
 } from "react-icons/si";
+import "./Toolstack.css"; // Custom styles
+
+const tools = [
+  <SiWindows />,
+  <SiVisualstudiocode />,
+  <SiPostman />,
+  <SiVercel />,
+  <SiGithub />,
+  <SiFigma />,
+  <SiDocker />,
+  <SiNotion />,
+  <SiSlack />,
+  <SiNodedotjs />,
+];
 
 function Toolstack() {
+  const containerRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(containerRef.current!);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (containerRef.current) observer.observe(containerRef.current);
+
+    return () => {
+      if (containerRef.current) observer.unobserve(containerRef.current);
+    };
+  }, []);
+
   return (
-    <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiWindows />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiVisualstudiocode />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiPostman />
-      </Col>
-      <Col xs={4} md={2} className="tech-icons">
-        <SiVercel />
-      </Col>
+    <Row
+      ref={containerRef}
+      style={{ justifyContent: "center", paddingBottom: "50px" }}
+    >
+      {tools.map((Icon, index) => (
+        <Col
+          xs={4}
+          md={2}
+          key={index}
+          className={`tech-icons tool-icon fade-up ${visible ? "visible" : ""}`}
+          style={{
+            animationDelay: `${index * 100}ms`,
+          }}
+        >
+          {Icon}
+        </Col>
+      ))}
     </Row>
   );
 }
