@@ -101,6 +101,23 @@
   color: #333;
 }
 
+.tech-icons {
+  font-size: 3rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Alternative approach using CSS custom properties for more flexibility */
 .tech-icons.delay-1 { transition-delay: 0.1s; }
 .tech-icons.delay-2 { transition-delay: 0.2s; }
