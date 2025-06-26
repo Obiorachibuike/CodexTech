@@ -1,5 +1,5 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Row, Col, ButtonGroup, Button } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
 
@@ -13,7 +13,6 @@ import {
   SiMysql,
 } from "react-icons/si";
 
-// Images
 import oralcancer from "../../Assets/Projects/oralcancer.png";
 import paddle from "../../Assets/Projects/paddle.png";
 import objecttrack from "../../Assets/Projects/objecttrack.png";
@@ -36,6 +35,7 @@ const projects = [
       { icon: SiScikitlearn, name: "Scikit-learn" },
       { icon: SiMysql, name: "MySQL" },
     ],
+    category: "AI",
   },
   {
     imgPath: LMmodel,
@@ -47,6 +47,7 @@ const projects = [
       { icon: SiPython, name: "Python" },
       { icon: SiTensorflow, name: "TensorFlow" },
     ],
+    category: "AI",
   },
   {
     imgPath: objecttrack,
@@ -58,6 +59,7 @@ const projects = [
       { icon: SiPython, name: "Python" },
       { icon: SiOpencv, name: "OpenCV" },
     ],
+    category: "AI",
   },
   {
     imgPath: oralcancer,
@@ -70,6 +72,7 @@ const projects = [
       { icon: SiPytorch, name: "PyTorch" },
       { icon: SiKeras, name: "Keras" },
     ],
+    category: "AI",
   },
   {
     imgPath: ccfraud,
@@ -81,6 +84,7 @@ const projects = [
       { icon: SiPython, name: "Python" },
       { icon: SiScikitlearn, name: "Scikit-learn" },
     ],
+    category: "AI",
   },
   {
     imgPath: paddle,
@@ -88,12 +92,22 @@ const projects = [
     description:
       "Real-time object detection and tracking with PaddlePaddle for advanced computer vision.",
     ghLink: "https://github.com/oxBinaryBrain/PaddleDetection",
+    demoLink: "https://example.com",
     techIcons: [{ icon: SiPython, name: "Python" }],
-    demoLink: "https://example.com", // Optional live link
+    category: "AI",
   },
 ];
 
+const categories = ["All", "Mobile", "Web", "AI", "Blockchain", "WordPress"];
+
 function Projects() {
+  const [filter, setFilter] = useState("All");
+
+  const filteredProjects =
+    filter === "All"
+      ? projects
+      : projects.filter((project) => project.category === filter);
+
   return (
     <Container fluid className="project-section">
       <Particle />
@@ -104,10 +118,26 @@ function Projects() {
         <p style={{ color: "white" }}>
           Here are a few projects I've worked on recently.
         </p>
+
+        <ButtonGroup className="mb-4">
+          {categories.map((cat) => (
+            <Button
+              key={cat}
+              variant={filter === cat ? "primary" : "outline-light"}
+              onClick={() => setFilter(cat)}
+            >
+              {cat}
+            </Button>
+          ))}
+        </ButtonGroup>
+
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          {projects.map((project, idx) => (
+          {filteredProjects.map((project, idx) => (
             <Col md={4} className="project-card" key={idx}>
-              <ProjectCard {...project} imgPath={project.imgPath || defaultImage} />
+              <ProjectCard
+                {...project}
+                imgPath={project.imgPath || defaultImage}
+              />
             </Col>
           ))}
         </Row>
