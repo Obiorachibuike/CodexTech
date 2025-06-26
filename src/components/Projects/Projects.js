@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Container, Row, Col, ButtonGroup, Button } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
 
@@ -102,11 +102,38 @@ const categories = ["All", "Mobile", "Web", "AI", "Blockchain", "WordPress"];
 
 function Projects() {
   const [filter, setFilter] = useState("All");
+  const [visibleItems, setVisibleItems] = useState({});
+
+  const cardRefs = useRef([]);
 
   const filteredProjects =
     filter === "All"
-      ? projects
-      : projects.filter((project) => project.category === filter);
+      ? projects.slice(0, 3)
+      : projects.filter((p) => p.category === filter).slice(0, 3);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = entry.target.getAttribute("data-idx");
+            setVisibleItems((prev) => ({ ...prev, [idx]: true }));
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, [filteredProjects]);
 
   return (
     <Container fluid className="project-section">
@@ -119,25 +146,34 @@ function Projects() {
           Here are a few projects I've worked on recently.
         </p>
 
-        <ButtonGroup className="mb-4">
+        {/* Filter Buttons */}
+        <Row className="mb-4 justify-content-center text-center gx-2 gy-2">
           {categories.map((cat) => (
-            <Button
-              key={cat}
-              variant={filter === cat ? "primary" : "outline-light"}
-              onClick={() => setFilter(cat)}
-            >
-              {cat}
-            </Button>
+            <Col xs="auto" key={cat}>
+              <Button
+                variant={filter === cat ? "primary" : "outline-light"}
+                onClick={() => setFilter(cat)}
+              >
+                {cat}
+              </Button>
+            </Col>
           ))}
-        </ButtonGroup>
+        </Row>
 
+        {/* Project Cards */}
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
           {filteredProjects.map((project, idx) => (
-            <Col md={4} className="project-card" key={idx}>
-              <ProjectCard
-                {...project}
-                imgPath={project.imgPath || defaultImage}
-              />
+            <Col
+              md={6}
+              lg={4}
+              key={idx}
+              className={`project-card fade-in-up ${
+                visibleItems[idx] ? "visible" : ""
+              }`}
+              data-idx={idx}
+              ref={(el) => (cardRefs.current[idx] = el)}
+            >
+              <ProjectCard {...project} imgPath={project.imgPath || defaultImage} />
             </Col>
           ))}
         </Row>
