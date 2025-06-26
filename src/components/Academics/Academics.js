@@ -4,37 +4,36 @@ import Particle from "../Particle";
 
 const academicsData = [
   {
-    title: "Bachelor of Technology",
-    institution: "Presidency University, Bengaluru",
-    duration: "2021 - Present",
+    title: "Bachelor of Science in Chemistry",
+    institution: "Federal University Ndufu-Alike",
+    duration: "2020 - 2024",
     cgpa: "In Progress",
     details: [
-      "Computer Science and Technology",
-      "Specialization in AI & ML",
-      "Key courses: Data Structures, Algorithms, Machine Learning",
-      "Research Projects in AI/ML",
+      "Major: Chemistry",
+      "Core Courses: Organic Chemistry, Inorganic Chemistry, Physical Chemistry",
+      "Research Projects and Lab Work",
     ],
   },
   {
-    title: "Pre-University College",
-    institution: "MES Kishora Kendra, Bengaluru",
-    duration: "2019 - 2021",
-    cgpa: "8.5",
+    title: "Web Developer Certification",
+    institution: "Florintech Computer College",
+    duration: "2021",
+    cgpa: "Completed",
     details: [
-      "Physics, Maths, Chemistry, Computer Science",
-      "Pre-University Completion",
-      "Advanced Mathematics and Computer Science",
+      "Front-end development fundamentals",
+      "HTML, CSS, JavaScript",
+      "Building responsive and interactive websites",
     ],
   },
   {
     title: "Secondary High School",
-    institution: "Nelamangala, Bengaluru",
+    institution: "Saint Mary's College, Ajangbadi, Lagos, Nigeria",
     duration: "2012 - 2019",
     cgpa: "9.09",
     details: [
-      "Based on NCERT",
+      "Based on NCERT curriculum",
       "Secondary Education Completion",
-      "Strong foundation in Science",
+      "Strong foundation in Science and Mathematics",
     ],
   },
 ];
