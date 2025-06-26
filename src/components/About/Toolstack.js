@@ -12,19 +12,19 @@ import {
   SiSlack,
   SiNodedotjs,
 } from "react-icons/si";
-import "./Toolstack.css"; // Custom styles
+import "./Toolstack.css";
 
 const tools = [
-  <SiWindows />,
-  <SiVisualstudiocode />,
-  <SiPostman />,
-  <SiVercel />,
-  <SiGithub />,
-  <SiFigma />,
-  <SiDocker />,
-  <SiNotion />,
-  <SiSlack />,
-  <SiNodedotjs />,
+  { icon: <SiWindows />, name: "Windows" },
+  { icon: <SiVisualstudiocode />, name: "VS Code" },
+  { icon: <SiPostman />, name: "Postman" },
+  { icon: <SiVercel />, name: "Vercel" },
+  { icon: <SiGithub />, name: "GitHub" },
+  { icon: <SiFigma />, name: "Figma" },
+  { icon: <SiDocker />, name: "Docker" },
+  { icon: <SiNotion />, name: "Notion" },
+  { icon: <SiSlack />, name: "Slack" },
+  { icon: <SiNodedotjs />, name: "Node.js" },
 ];
 
 function Toolstack() {
@@ -54,17 +54,18 @@ function Toolstack() {
       ref={containerRef}
       style={{ justifyContent: "center", paddingBottom: "50px" }}
     >
-      {tools.map((Icon, index) => (
+      {tools.map((tool, index) => (
         <Col
           xs={4}
           md={2}
           key={index}
+          tabIndex={0}
           className={`tech-icons tool-icon fade-up ${visible ? "visible" : ""}`}
-          style={{
-            animationDelay: `${index * 100}ms`,
-          }}
+          style={{ animationDelay: `${index * 100}ms` }}
         >
-          {Icon}
+          {tool.icon}
+          {/* Optionally show tool.name below */}
+          {/* <div className="tool-label">{tool.name}</div> */}
         </Col>
       ))}
     </Row>
