@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
@@ -13,6 +13,7 @@ import {
   SiMysql,
 } from "react-icons/si";
 
+// Images
 import oralcancer from "../../Assets/Projects/oralcancer.png";
 import paddle from "../../Assets/Projects/paddle.png";
 import objecttrack from "../../Assets/Projects/objecttrack.png";
@@ -102,67 +103,11 @@ const categories = ["All", "Mobile", "Web", "AI", "Blockchain", "WordPress"];
 
 function Projects() {
   const [filter, setFilter] = useState("All");
-  const [visibleCount, setVisibleCount] = useState(6);
-  const [visibleItems, setVisibleItems] = useState({});
-  const sentinelRef = useRef(null);
-  const cardRefs = useRef([]);
 
-  const getFilteredProjects = () => {
-    const filtered =
-      filter === "All"
-        ? projects.slice(0, visibleCount)
-        : projects.filter((p) => p.category === filter).slice(0, 3);
-    return filtered;
-  };
-
-  const filteredProjects = getFilteredProjects();
-
-  useEffect(() => {
-    setVisibleItems({});
-    cardRefs.current = [];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = entry.target.getAttribute("data-idx");
-            setVisibleItems((prev) => ({ ...prev, [idx]: true }));
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    cardRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => {
-      cardRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
-      });
-    };
-  }, [filter, visibleCount]);
-
-  useEffect(() => {
-    if (filter !== "All") return;
-
-    const sentinelObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && visibleCount < projects.length) {
-          setVisibleCount((prev) => prev + 3);
-        }
-      },
-      { threshold: 1.0 }
-    );
-
-    const sentinel = sentinelRef.current;
-    if (sentinel) sentinelObserver.observe(sentinel);
-
-    return () => {
-      if (sentinel) sentinelObserver.unobserve(sentinel);
-    };
-  }, [visibleCount, filter]);
+  const filteredProjects =
+    filter === "All"
+      ? projects.slice(0, 3) // Limit to 3 for All
+      : projects.filter((project) => project.category === filter).slice(0, 3); // Show 3 per filter
 
   return (
     <Container fluid className="project-section">
@@ -181,10 +126,7 @@ function Projects() {
             <Col xs="auto" key={cat}>
               <Button
                 variant={filter === cat ? "primary" : "outline-light"}
-                onClick={() => {
-                  setFilter(cat);
-                  setVisibleCount(6);
-                }}
+                onClick={() => setFilter(cat)}
               >
                 {cat}
               </Button>
@@ -192,34 +134,14 @@ function Projects() {
           ))}
         </Row>
 
-        {/* Projects */}
+        {/* Projects Grid */}
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
           {filteredProjects.map((project, idx) => (
-            <Col
-              md={6}
-              lg={4}
-              key={idx}
-              className={`project-card fade-in-up ${
-                visibleItems[idx] ? "visible" : ""
-              }`}
-              data-idx={idx}
-              ref={(el) => (cardRefs.current[idx] = el)}
-            >
-              <ProjectCard
-                {...project}
-                imgPath={project.imgPath || defaultImage}
-              />
+            <Col md={6} lg={4} className="project-card" key={idx}>
+              <ProjectCard {...project} imgPath={project.imgPath || defaultImage} />
             </Col>
           ))}
         </Row>
-
-        {/* Load More Trigger */}
-        {filter === "All" && visibleCount < projects.length && (
-          <div
-            ref={sentinelRef}
-            style={{ height: "30px", margin: "30px auto", width: "100%" }}
-          />
-        )}
       </Container>
     </Container>
   );
