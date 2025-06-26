@@ -1,14 +1,29 @@
-.project-card-view {
+/* Animation wrapper */
+.project-card {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
 }
 
-.project-card-view.visible {
+.project-card.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* Card inner content styling */
+.project-card-view {
+  background-color: #1e1e2f;
+  border: none;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Tech icons row */
 .tech-icon-row {
   display: flex;
   flex-wrap: wrap;
@@ -18,26 +33,14 @@
   color: #fff;
 }
 
+/* Single tech icon */
 .tech-icon {
   background-color: rgba(255, 255, 255, 0.05);
   padding: 6px 10px;
   border-radius: 8px;
-}
-
-.project-card-view .tech-icons-container div {
   transition: transform 0.2s ease;
 }
 
-.project-card-view .tech-icons-container div:hover {
+.tech-icon:hover {
   transform: scale(1.2);
-}
-
-.project-card.fade-in-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out;
-}
-.project-card.fade-in-up.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
