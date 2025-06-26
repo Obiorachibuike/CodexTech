@@ -32,7 +32,7 @@ import {
   SiChainlink,
   SiRedis,
   SiVercel,
-  SiEthereum, // ✅ replacing SiEthers
+  SiEthereum,
 } from "react-icons/si";
 import { CgCPlusPlus } from "react-icons/cg";
 import "./Techstack.css";
@@ -65,7 +65,7 @@ const icons = [
   <SiVercel />,
   <SiSolidity />,
   <SiWeb3Dotjs />,
-  <SiEthereum />, // ✅ using this instead of SiEthers
+  <SiEthereum />,
   <SiIpfs />,
   <SiChainlink />,
 ];
@@ -75,6 +75,8 @@ function Techstack() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0); // Optional scroll-reset
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && containerRef.current) {
@@ -108,7 +110,7 @@ function Techstack() {
           key={index}
           className={`tech-icons fade-up ${visible ? "visible" : ""}`}
           style={{
-            animationDelay: `${index * 100}ms`,
+            transitionDelay: `${index * 100}ms`,
           }}
         >
           {IconComponent}
