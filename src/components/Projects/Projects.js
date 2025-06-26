@@ -13,12 +13,15 @@ import {
   SiMysql,
 } from "react-icons/si";
 
+// Images
 import oralcancer from "../../Assets/Projects/oralcancer.png";
 import paddle from "../../Assets/Projects/paddle.png";
 import objecttrack from "../../Assets/Projects/objecttrack.png";
 import fraud_Detection from "../../Assets/Projects/fraud_Detection.png";
 import ccfraud from "../../Assets/Projects/ccfraud.png";
-import LMmodel from "../../Assets/Projects/LMmodel.png";
+import LMmodel from "../../Assets/Projects/LMmodel.png"; // Default fallback
+
+const defaultImage = LMmodel;
 
 const projects = [
   {
@@ -86,6 +89,7 @@ const projects = [
       "Real-time object detection and tracking with PaddlePaddle for advanced computer vision.",
     ghLink: "https://github.com/oxBinaryBrain/PaddleDetection",
     techIcons: [{ icon: SiPython, name: "Python" }],
+    demoLink: "https://example.com", // Optional live link
   },
 ];
 
@@ -103,7 +107,7 @@ function Projects() {
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
           {projects.map((project, idx) => (
             <Col md={4} className="project-card" key={idx}>
-              <ProjectCard {...project} />
+              <ProjectCard {...project} imgPath={project.imgPath || defaultImage} />
             </Col>
           ))}
         </Row>
