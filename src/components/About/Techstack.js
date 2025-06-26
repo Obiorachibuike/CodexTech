@@ -75,8 +75,6 @@ function Techstack() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Optional scroll-reset
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && containerRef.current) {
@@ -108,9 +106,9 @@ function Techstack() {
           xs={4}
           md={2}
           key={index}
-          className={`tech-icons fade-up ${visible ? "visible" : ""}`}
+          className={`tech-icons ${visible ? "visible" : ""}`}
           style={{
-            transitionDelay: `${index * 100}ms`,
+            transitionDelay: `${index * 100}ms`, // stagger animation delay
           }}
         >
           {IconComponent}
