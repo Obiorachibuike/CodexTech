@@ -1,5 +1,5 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
 
@@ -18,7 +18,9 @@ import paddle from "../../Assets/Projects/paddle.png";
 import objecttrack from "../../Assets/Projects/objecttrack.png";
 import fraud_Detection from "../../Assets/Projects/fraud_Detection.png";
 import ccfraud from "../../Assets/Projects/ccfraud.png";
-import LMmodel from "../../Assets/Projects/LMmodel.png";
+import LMmodel from "../../Assets/Projects/LMmodel.png"; // Default fallback
+
+const defaultImage = LMmodel;
 
 const projects = [
   {
@@ -33,6 +35,7 @@ const projects = [
       { icon: SiScikitlearn, name: "Scikit-learn" },
       { icon: SiMysql, name: "MySQL" },
     ],
+    category: "AI",
   },
   {
     imgPath: LMmodel,
@@ -44,6 +47,7 @@ const projects = [
       { icon: SiPython, name: "Python" },
       { icon: SiTensorflow, name: "TensorFlow" },
     ],
+    category: "AI",
   },
   {
     imgPath: objecttrack,
@@ -55,6 +59,7 @@ const projects = [
       { icon: SiPython, name: "Python" },
       { icon: SiOpencv, name: "OpenCV" },
     ],
+    category: "AI",
   },
   {
     imgPath: oralcancer,
@@ -67,6 +72,7 @@ const projects = [
       { icon: SiPytorch, name: "PyTorch" },
       { icon: SiKeras, name: "Keras" },
     ],
+    category: "AI",
   },
   {
     imgPath: ccfraud,
@@ -78,6 +84,7 @@ const projects = [
       { icon: SiPython, name: "Python" },
       { icon: SiScikitlearn, name: "Scikit-learn" },
     ],
+    category: "AI",
   },
   {
     imgPath: paddle,
@@ -85,11 +92,78 @@ const projects = [
     description:
       "Real-time object detection and tracking with PaddlePaddle for advanced computer vision.",
     ghLink: "https://github.com/oxBinaryBrain/PaddleDetection",
+    demoLink: "https://example.com",
     techIcons: [{ icon: SiPython, name: "Python" }],
+    category: "AI",
   },
 ];
 
+const categories = ["All", "Mobile", "Web", "AI", "Blockchain", "WordPress"];
+
 function Projects() {
+  const [filter, setFilter] = useState("All");
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleItems, setVisibleItems] = useState({});
+  const sentinelRef = useRef(null);
+  const cardRefs = useRef([]);
+
+  const getFilteredProjects = () => {
+    const filtered =
+      filter === "All"
+        ? projects.slice(0, visibleCount)
+        : projects.filter((p) => p.category === filter).slice(0, 3);
+    return filtered;
+  };
+
+  const filteredProjects = getFilteredProjects();
+
+  useEffect(() => {
+    setVisibleItems({});
+    cardRefs.current = [];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = entry.target.getAttribute("data-idx");
+            setVisibleItems((prev) => ({ ...prev, [idx]: true }));
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, [filter, visibleCount]);
+
+  useEffect(() => {
+    if (filter !== "All") return;
+
+    const sentinelObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && visibleCount < projects.length) {
+          setVisibleCount((prev) => prev + 3);
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    const sentinel = sentinelRef.current;
+    if (sentinel) sentinelObserver.observe(sentinel);
+
+    return () => {
+      if (sentinel) sentinelObserver.unobserve(sentinel);
+    };
+  }, [visibleCount, filter]);
+
   return (
     <Container fluid className="project-section">
       <Particle />
@@ -100,13 +174,52 @@ function Projects() {
         <p style={{ color: "white" }}>
           Here are a few projects I've worked on recently.
         </p>
-        <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          {projects.map((project, idx) => (
-            <Col md={4} className="project-card" key={idx}>
-              <ProjectCard {...project} />
+
+        {/* Filter Buttons */}
+        <Row className="mb-4 justify-content-center text-center gx-2 gy-2">
+          {categories.map((cat) => (
+            <Col xs="auto" key={cat}>
+              <Button
+                variant={filter === cat ? "primary" : "outline-light"}
+                onClick={() => {
+                  setFilter(cat);
+                  setVisibleCount(6);
+                }}
+              >
+                {cat}
+              </Button>
             </Col>
           ))}
         </Row>
+
+        {/* Projects */}
+        <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+          {filteredProjects.map((project, idx) => (
+            <Col
+              md={6}
+              lg={4}
+              key={idx}
+              className={`project-card fade-in-up ${
+                visibleItems[idx] ? "visible" : ""
+              }`}
+              data-idx={idx}
+              ref={(el) => (cardRefs.current[idx] = el)}
+            >
+              <ProjectCard
+                {...project}
+                imgPath={project.imgPath || defaultImage}
+              />
+            </Col>
+          ))}
+        </Row>
+
+        {/* Load More Trigger */}
+        {filter === "All" && visibleCount < projects.length && (
+          <div
+            ref={sentinelRef}
+            style={{ height: "30px", margin: "30px auto", width: "100%" }}
+          />
+        )}
       </Container>
     </Container>
   );
