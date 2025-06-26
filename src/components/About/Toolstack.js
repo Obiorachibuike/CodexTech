@@ -34,18 +34,22 @@ function Toolstack() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && containerRef.current) {
           setVisible(true);
-          observer.unobserve(containerRef.current!);
+          observer.unobserve(containerRef.current);
         }
       },
       { threshold: 0.2 }
     );
 
-    if (containerRef.current) observer.observe(containerRef.current);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
     return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current);
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
     };
   }, []);
 
@@ -64,7 +68,6 @@ function Toolstack() {
           style={{ animationDelay: `${index * 100}ms` }}
         >
           {tool.icon}
-          {/* Optionally show tool.name below */}
           {/* <div className="tool-label">{tool.name}</div> */}
         </Col>
       ))}
