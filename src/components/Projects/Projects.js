@@ -104,20 +104,24 @@ function Projects() {
   const [filter, setFilter] = useState("All");
   const [visibleCount, setVisibleCount] = useState(6);
   const [visibleItems, setVisibleItems] = useState({});
-  const cardRefs = useRef([]);
   const sentinelRef = useRef(null);
+  const cardRefs = useRef([]);
 
-  const filteredProjects =
-    filter === "All"
-      ? projects.slice(0, visibleCount)
-      : projects.filter((p) => p.category === filter).slice(0, 3);
+  const getFilteredProjects = () => {
+    const filtered =
+      filter === "All"
+        ? projects.slice(0, visibleCount)
+        : projects.filter((p) => p.category === filter).slice(0, 3);
+    return filtered;
+  };
 
-  // Card intersection animation
+  const filteredProjects = getFilteredProjects();
+
   useEffect(() => {
     setVisibleItems({});
     cardRefs.current = [];
 
-    const cardObserver = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -126,25 +130,24 @@ function Projects() {
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.3 }
     );
 
     cardRefs.current.forEach((ref) => {
-      if (ref) cardObserver.observe(ref);
+      if (ref) observer.observe(ref);
     });
 
     return () => {
       cardRefs.current.forEach((ref) => {
-        if (ref) cardObserver.unobserve(ref);
+        if (ref) observer.unobserve(ref);
       });
     };
-  }, [filteredProjects]);
+  }, [filter, visibleCount]);
 
-  // Load more projects when reaching the bottom (only for "All")
   useEffect(() => {
     if (filter !== "All") return;
 
-    const observer = new IntersectionObserver(
+    const sentinelObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && visibleCount < projects.length) {
           setVisibleCount((prev) => prev + 3);
@@ -153,11 +156,11 @@ function Projects() {
       { threshold: 1.0 }
     );
 
-    const current = sentinelRef.current;
-    if (current) observer.observe(current);
+    const sentinel = sentinelRef.current;
+    if (sentinel) sentinelObserver.observe(sentinel);
 
     return () => {
-      if (current) observer.unobserve(current);
+      if (sentinel) sentinelObserver.unobserve(sentinel);
     };
   }, [visibleCount, filter]);
 
@@ -172,7 +175,7 @@ function Projects() {
           Here are a few projects I've worked on recently.
         </p>
 
-        {/* Category Buttons */}
+        {/* Filter Buttons */}
         <Row className="mb-4 justify-content-center text-center gx-2 gy-2">
           {categories.map((cat) => (
             <Col xs="auto" key={cat}>
@@ -180,7 +183,7 @@ function Projects() {
                 variant={filter === cat ? "primary" : "outline-light"}
                 onClick={() => {
                   setFilter(cat);
-                  setVisibleCount(6); // reset count when changing filter
+                  setVisibleCount(6);
                 }}
               >
                 {cat}
@@ -189,7 +192,7 @@ function Projects() {
           ))}
         </Row>
 
-        {/* Project Cards */}
+        {/* Projects */}
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
           {filteredProjects.map((project, idx) => (
             <Col
