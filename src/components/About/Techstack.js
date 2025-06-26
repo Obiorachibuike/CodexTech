@@ -81,18 +81,22 @@ function Techstack() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && containerRef.current) {
           setVisible(true);
-          observer.unobserve(containerRef.current!);
+          observer.unobserve(containerRef.current);
         }
       },
       { threshold: 0.2 }
     );
 
-    if (containerRef.current) observer.observe(containerRef.current);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
     return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current);
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
     };
   }, []);
 
