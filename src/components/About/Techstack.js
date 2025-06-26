@@ -30,9 +30,9 @@ import {
   SiWeb3Dotjs,
   SiIpfs,
   SiChainlink,
-  SiEthers,
   SiRedis,
   SiVercel,
+  SiEthereum, // ✅ replacing SiEthers
 } from "react-icons/si";
 import { CgCPlusPlus } from "react-icons/cg";
 import "./Techstack.css";
@@ -65,7 +65,7 @@ const icons = [
   <SiVercel />,
   <SiSolidity />,
   <SiWeb3Dotjs />,
-  <SiEthers />,
+  <SiEthereum />, // ✅ using this instead of SiEthers
   <SiIpfs />,
   <SiChainlink />,
 ];
