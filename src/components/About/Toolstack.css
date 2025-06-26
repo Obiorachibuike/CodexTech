@@ -4,40 +4,13 @@
   padding: 20px;
   margin: 10px;
   border-radius: 12px;
-  transition: transform 0.3s ease;
-}
-
-.tool-icon {
-  background-color: #ffffff10; /* subtle glass */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.fade-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.tech-icons {
-  font-size: 3rem;
-  text-align: center;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 12px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   outline: none;
   cursor: pointer;
 }
 
 .tool-icon {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.05); /* subtle glass */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -62,7 +35,8 @@
   transform: translateY(0);
 }
 
-/* Optional label styling if needed
+/* Optional label styling if needed */
+/*
 .tool-label {
   margin-top: 10px;
   font-size: 0.85rem;
