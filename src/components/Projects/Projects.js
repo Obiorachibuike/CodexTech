@@ -11,6 +11,7 @@ import {
   SiKeras,
   SiScikitlearn,
   SiMysql,
+  SiReact,
 } from "react-icons/si";
 
 import oralcancer from "../../Assets/Projects/oralcancer.png";
@@ -23,6 +24,15 @@ import LMmodel from "../../Assets/Projects/LMmodel.png";
 const defaultImage = LMmodel;
 
 const projects = [
+  {
+    imgPath: defaultImage,
+    title: "HAWC R&D Private Limited",
+    description:
+      "A simple mobile login/signup app built using React Native (Expo) for seamless user authentication.",
+    ghLink: "https://github.com/Obiorachibuike/HAWC-R-D-PRIVATE-LIMITED",
+    techIcons: [{ icon: SiReact, name: "React Native" }],
+    category: "Mobile",
+  },
   {
     imgPath: fraud_Detection,
     title: "Income Tax Fraud Detection",
@@ -191,7 +201,7 @@ function Projects() {
           {categories.map((cat) => (
             <Col xs="auto" key={cat}>
               <Button
-                variant={filter === cat ? "primary" : "outline-light"}
+                className={`category-btn ${filter === cat ? "active" : ""}`}
                 onClick={() => handleFilterChange(cat)}
               >
                 {cat}
