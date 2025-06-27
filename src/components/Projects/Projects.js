@@ -105,40 +105,39 @@ function Projects() {
   const [visibleCount, setVisibleCount] = useState(6);
   const [visibleItems, setVisibleItems] = useState({});
   const sentinelRef = useRef(null);
-  const cardRefs = useRef([]);
+  const cardRefs = useRef({});
 
   const getFilteredProjects = () => {
-    const filtered =
-      filter === "All"
-        ? projects.slice(0, visibleCount)
-        : projects.filter((p) => p.category === filter).slice(0, 3);
-    return filtered;
+    if (filter === "All") {
+      return projects.slice(0, visibleCount);
+    }
+    return projects.filter((p) => p.category === filter).slice(0, 3);
   };
 
   const filteredProjects = getFilteredProjects();
 
   useEffect(() => {
     setVisibleItems({});
-    cardRefs.current = [];
+    cardRefs.current = {};
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const idx = entry.target.getAttribute("data-idx");
-            setVisibleItems((prev) => ({ ...prev, [idx]: true }));
+            const key = entry.target.getAttribute("data-key");
+            setVisibleItems((prev) => ({ ...prev, [key]: true }));
           }
         });
       },
       { threshold: 0.3 }
     );
 
-    cardRefs.current.forEach((ref) => {
+    Object.entries(cardRefs.current).forEach(([key, ref]) => {
       if (ref) observer.observe(ref);
     });
 
     return () => {
-      cardRefs.current.forEach((ref) => {
+      Object.values(cardRefs.current).forEach((ref) => {
         if (ref) observer.unobserve(ref);
       });
     };
@@ -192,28 +191,31 @@ function Projects() {
           ))}
         </Row>
 
-        {/* Projects */}
+        {/* Project Cards */}
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          {filteredProjects.map((project, idx) => (
-            <Col
-              md={6}
-              lg={4}
-              key={idx}
-              className={`project-card fade-in-up ${
-                visibleItems[idx] ? "visible" : ""
-              }`}
-              data-idx={idx}
-              ref={(el) => (cardRefs.current[idx] = el)}
-            >
-              <ProjectCard
-                {...project}
-                imgPath={project.imgPath || defaultImage}
-              />
-            </Col>
-          ))}
+          {filteredProjects.map((project) => {
+            const key = project.title;
+            return (
+              <Col
+                md={6}
+                lg={4}
+                key={key}
+                className={`project-card fade-in-up ${
+                  visibleItems[key] ? "visible" : ""
+                }`}
+                data-key={key}
+                ref={(el) => (cardRefs.current[key] = el)}
+              >
+                <ProjectCard
+                  {...project}
+                  imgPath={project.imgPath || defaultImage}
+                />
+              </Col>
+            );
+          })}
         </Row>
 
-        {/* Load More Trigger */}
+        {/* Load More Observer */}
         {filter === "All" && visibleCount < projects.length && (
           <div
             ref={sentinelRef}
