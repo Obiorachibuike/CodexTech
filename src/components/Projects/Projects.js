@@ -18,7 +18,7 @@ import paddle from "../../Assets/Projects/paddle.png";
 import objecttrack from "../../Assets/Projects/objecttrack.png";
 import fraud_Detection from "../../Assets/Projects/fraud_Detection.png";
 import ccfraud from "../../Assets/Projects/ccfraud.png";
-import LMmodel from "../../Assets/Projects/LMmodel.png"; // Default fallback
+import LMmodel from "../../Assets/Projects/LMmodel.png";
 
 const defaultImage = LMmodel;
 
@@ -103,7 +103,8 @@ const categories = ["All", "Mobile", "Web", "AI", "Blockchain", "WordPress"];
 function Projects() {
   const [filter, setFilter] = useState("All");
   const [visibleCount, setVisibleCount] = useState(6);
-  const [visibleItems, setVisibleItems] = useState({});
+  const [isFading, setIsFading] = useState(false);
+  const [delayedVisibleItems, setDelayedVisibleItems] = useState({});
   const sentinelRef = useRef(null);
   const cardRefs = useRef({});
 
@@ -117,7 +118,7 @@ function Projects() {
   const filteredProjects = getFilteredProjects();
 
   useEffect(() => {
-    setVisibleItems({});
+    setDelayedVisibleItems({});
     cardRefs.current = {};
 
     const observer = new IntersectionObserver(
@@ -125,7 +126,11 @@ function Projects() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const key = entry.target.getAttribute("data-key");
-            setVisibleItems((prev) => ({ ...prev, [key]: true }));
+            const delay = parseInt(entry.target.getAttribute("data-delay")) || 0;
+
+            setTimeout(() => {
+              setDelayedVisibleItems((prev) => ({ ...prev, [key]: true }));
+            }, delay);
           }
         });
       },
@@ -163,6 +168,16 @@ function Projects() {
     };
   }, [visibleCount, filter]);
 
+  const handleFilterChange = (cat) => {
+    if (cat === filter) return;
+    setIsFading(true);
+    setTimeout(() => {
+      setFilter(cat);
+      setVisibleCount(6);
+      setIsFading(false);
+    }, 300);
+  };
+
   return (
     <Container fluid className="project-section">
       <Particle />
@@ -174,16 +189,12 @@ function Projects() {
           Here are a few projects I've worked on recently.
         </p>
 
-        {/* Filter Buttons */}
         <Row className="mb-4 justify-content-center text-center gx-2 gy-2">
           {categories.map((cat) => (
             <Col xs="auto" key={cat}>
               <Button
                 variant={filter === cat ? "primary" : "outline-light"}
-                onClick={() => {
-                  setFilter(cat);
-                  setVisibleCount(6);
-                }}
+                onClick={() => handleFilterChange(cat)}
               >
                 {cat}
               </Button>
@@ -191,19 +202,21 @@ function Projects() {
           ))}
         </Row>
 
-        {/* Project Cards */}
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          {filteredProjects.map((project) => {
+          {filteredProjects.map((project, index) => {
             const key = project.title;
+            const delay = index * 100;
+
             return (
               <Col
                 md={6}
                 lg={4}
                 key={key}
                 className={`project-card fade-in-up ${
-                  visibleItems[key] ? "visible" : ""
-                }`}
+                  delayedVisibleItems[key] && !isFading ? "visible" : ""
+                } ${isFading ? "fading-out" : ""}`}
                 data-key={key}
+                data-delay={delay}
                 ref={(el) => (cardRefs.current[key] = el)}
               >
                 <ProjectCard
@@ -215,7 +228,6 @@ function Projects() {
           })}
         </Row>
 
-        {/* Load More Observer */}
         {filter === "All" && visibleCount < projects.length && (
           <div
             ref={sentinelRef}
