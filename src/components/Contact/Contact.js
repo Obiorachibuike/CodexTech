@@ -103,7 +103,7 @@ const Contact = () => {
       <div className="footer">
         <button
           className="star-repo-button"
-          onClick={() => window.open("https://github.com/Obiorachibuike", "_blank")}
+          onClick={() => window.open("https://github.com/Obiorachibuike/CodexTech", "_blank")}
         >
           ⭐ Star this repo for support
         </button>
