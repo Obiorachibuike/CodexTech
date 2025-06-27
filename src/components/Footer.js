@@ -1,4 +1,4 @@
-import React from "react";
+https://cste-app-obiorachibuikes-projects.vercel.app/?tab=configimport React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import {
   AiFillGithub,
@@ -13,7 +13,6 @@ function Footer() {
     <Container fluid className="footer">
       <Row>
         <Col md="4" className="footer-copywright">
-          <h3>Designed and Developed by UDAY</h3>
         </Col>
         <Col md="4" className="footer-copywright">
           <h3>Copyright © {year} KodexTeck</h3>
