@@ -104,7 +104,7 @@ function Projects() {
   const [filter, setFilter] = useState("All");
   const [visibleCount, setVisibleCount] = useState(6);
   const [isFading, setIsFading] = useState(false);
-  const [delayedVisibleItems, setDelayedVisibleItems] = useState({});
+  const [visibleItems, setVisibleItems] = useState({});
   const sentinelRef = useRef(null);
   const cardRefs = useRef({});
 
@@ -118,7 +118,7 @@ function Projects() {
   const filteredProjects = getFilteredProjects();
 
   useEffect(() => {
-    setDelayedVisibleItems({});
+    setVisibleItems({});
     cardRefs.current = {};
 
     const observer = new IntersectionObserver(
@@ -126,11 +126,9 @@ function Projects() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const key = entry.target.getAttribute("data-key");
-            const delay = parseInt(entry.target.getAttribute("data-delay")) || 0;
-
             setTimeout(() => {
-              setDelayedVisibleItems((prev) => ({ ...prev, [key]: true }));
-            }, delay);
+              setVisibleItems((prev) => ({ ...prev, [key]: true }));
+            }, parseInt(entry.target.getAttribute("data-delay")) || 0);
           }
         });
       },
@@ -212,16 +210,14 @@ function Projects() {
                 md={6}
                 lg={4}
                 key={key}
-                className={`project-card fade-in-up ${
-                  delayedVisibleItems[key] && !isFading ? "visible" : ""
-                } ${isFading ? "fading-out" : ""}`}
                 data-key={key}
                 data-delay={delay}
                 ref={(el) => (cardRefs.current[key] = el)}
               >
                 <ProjectCard
                   {...project}
-                  imgPath={project.imgPath || defaultImage}
+                  visible={visibleItems[key] && !isFading}
+                  fadingOut={isFading}
                 />
               </Col>
             );
