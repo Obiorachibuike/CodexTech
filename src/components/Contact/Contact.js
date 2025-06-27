@@ -94,7 +94,7 @@ const Contact = () => {
         <a href="https://www.linkedin.com/in/obiorachibuike/" target="_blank" rel="noopener noreferrer" className="social-button">
           <FaLinkedin size={24} /> LinkedIn
         </a>
-        <a href="mailto:ud4yg@yandex.com" className="social-button">
+        <a href="mailto:obiorachibuike22@gmail.com" className="social-button">
           <FaEnvelope size={24} /> Email
         </a>
       </div>
