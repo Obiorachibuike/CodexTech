@@ -1,9 +1,6 @@
-https://cste-app-obiorachibuikes-projects.vercel.app/?tab=configimport React from "react";
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import {
-  AiFillGithub,
-  AiOutlineTwitter,
-} from "react-icons/ai";
+import { AiFillGithub, AiOutlineTwitter } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 
 function Footer() {
@@ -12,8 +9,7 @@ function Footer() {
   return (
     <Container fluid className="footer">
       <Row>
-        <Col md="4" className="footer-copywright">
-        </Col>
+        <Col md="4" className="footer-copywright"></Col>
         <Col md="4" className="footer-copywright">
           <h3>Copyright © {year} KodexTeck</h3>
         </Col>
@@ -23,7 +19,7 @@ function Footer() {
               <a
                 href="https://github.com/obiorachibuike"
                 style={{ color: "white" }}
-                target="_blank" 
+                target="_blank"
                 rel="noopener noreferrer"
               >
                 <AiFillGithub />
@@ -33,17 +29,17 @@ function Footer() {
               <a
                 href="https://x.com/ObioraChibuike5"
                 style={{ color: "white" }}
-                target="_blank" 
+                target="_blank"
                 rel="noopener noreferrer"
               >
-                <AiOutlineTwitter/>
+                <AiOutlineTwitter />
               </a>
             </li>
             <li className="social-icons">
               <a
                 href="https://www.linkedin.com/in/obiorachibuike"
                 style={{ color: "white" }}
-                target="_blank" 
+                target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaLinkedinIn />
