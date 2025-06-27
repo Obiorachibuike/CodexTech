@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
 import LMmodel from "../../Assets/Projects/LMmodel.png";
-import  "./ProjectCards.css"
+import "./ProjectCards.css"; // ✅ Import the CSS correctly
 
 function ProjectCards({
   imgPath,
@@ -36,6 +36,7 @@ function ProjectCards({
           <div>
             <Card.Title>{title}</Card.Title>
             <Card.Text style={{ textAlign: "justify" }}>{description}</Card.Text>
+
             {techIcons.length > 0 && (
               <div className="tech-icon-row">
                 {techIcons.map((tech, index) => {
@@ -49,6 +50,7 @@ function ProjectCards({
               </div>
             )}
           </div>
+
           <div className="d-flex mt-3">
             {ghLink && (
               <Button variant="primary" href={ghLink} target="_blank">
