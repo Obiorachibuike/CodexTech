@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
 import LMmodel from "../../Assets/Projects/LMmodel.png";
+import  "./ProjectCards.css"
 
 function ProjectCards({
   imgPath,
