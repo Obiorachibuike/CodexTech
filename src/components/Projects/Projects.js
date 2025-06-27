@@ -96,6 +96,18 @@ const projects = [
     ],
     category: "AI",
   },
+{
+  imgPath: defaultImage, // Replace with actual image if available
+  title: "CSTE App",
+  description:
+    "A web-based admin dashboard for configuring and managing CSTE app settings. Built with React.",
+  ghLink: "https://github.com/Obiorachibuike/CSTE_App",
+  demoLink: "https://cste-app-obiorachibuikes-projects.vercel.app/?tab=config",
+  techIcons: [
+    { icon: SiReact, name: "React" },
+  ],
+  category: "Web",
+},
   {
     imgPath: paddle,
     title: "Paddle Detection Toolkit",
