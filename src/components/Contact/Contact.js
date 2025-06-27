@@ -82,16 +82,16 @@ const Contact = () => {
 
       {/* Direct Email Contact */}
       <p className="direct-contact-text">Or reach me directly at:</p>
-      <a href="mailto:ud4yg@yandex.com" className="email-button">
-        📧 ud4yg@yandex.com
+      <a href="mailto:obiorachibuike22@gmail.com" className="email-button">
+        📧 obiorachibuike22@gmail.com
       </a>
 
       {/* Social Media Buttons with Icons */}
       <div className="social-links">
-        <a href="https://github.com/oxBinaryBrain" target="_blank" rel="noopener noreferrer" className="social-button">
+        <a href="https://github.com/Obiorachibuike" target="_blank" rel="noopener noreferrer" className="social-button">
           <FaGithub size={24} /> GitHub
         </a>
-        <a href="https://www.linkedin.com/in/uday-g-601ba9266/" target="_blank" rel="noopener noreferrer" className="social-button">
+        <a href="https://www.linkedin.com/in/obiorachibuike/" target="_blank" rel="noopener noreferrer" className="social-button">
           <FaLinkedin size={24} /> LinkedIn
         </a>
         <a href="mailto:ud4yg@yandex.com" className="social-button">
@@ -103,7 +103,7 @@ const Contact = () => {
       <div className="footer">
         <button
           className="star-repo-button"
-          onClick={() => window.open("https://github.com/oxBinaryBrain/Portfolio_V1", "_blank")}
+          onClick={() => window.open("https://github.com/Obiorachibuike", "_blank")}
         >
           ⭐ Star this repo for support
         </button>
