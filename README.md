@@ -23,7 +23,7 @@ This portfolio is built using the following technologies:
 
 Feel free to reach out to me for any inquiries or collaborations:
 
-- **Email**: [ud4yg@yandex.com](mailto:ud4yg@yandex.com)
+- **Email**: [obiorachibuike22@gmail.com](mailto:obiorachibuike22@gmail.com)
 - **LinkedIn**: [Uday G](https://www.linkedin.com/in/uday-g-601ba9266/)
 - **GitHub**: [oxBinaryBrain](https://github.com/oxBinaryBrain)
 
